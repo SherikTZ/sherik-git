@@ -2,41 +2,48 @@
 #include <string>
 #include <iostream>
 #include <fstream>
+#include "file.h"
 
-std::vector<std::string> readFileContents(const std::string& filepath){
+std::vector<std::string> readFileContents(const std::string &filepath)
+{
     std::vector<std::string> fileContents = {};
     std::ifstream file(filepath);
 
-    if (!file.is_open()) {
+    if (!file.is_open())
+    {
         std::cerr << "Error: File could not be opened." << std::endl;
         return fileContents;
     }
 
     std::string line;
 
-    while (std::getline(file, line)) {
+    while (std::getline(file, line))
+    {
         fileContents.push_back(line);
     }
 
     file.close();
 
     return fileContents;
-
 }
 
-int getFileSize(const std::string& filepath){
+int getFileSize(const std::string &filepath)
+{
     std::ifstream file(filepath, std::ios::binary | std::ios::ate);
-    if (!file) {
+    if (!file)
+    {
         std::cerr << "Failed to open file.\n";
         return -1;
     }
     return file.tellg();
 }
 
-std::vector<char> readFileBinary(const std::string& filepath) {
+std::vector<char> readFileBinary(const std::string &filepath)
+{
     std::ifstream file(filepath, std::ios::binary);
 
-    if (!file) {
+    if (!file)
+    {
         std::cerr << "Error: Could not open file for binary reading." << std::endl;
         return {};
     }
@@ -46,7 +53,8 @@ std::vector<char> readFileBinary(const std::string& filepath) {
     file.seekg(0, std::ios::beg);
 
     std::vector<char> buffer(size);
-    if (!file.read(buffer.data(), size)) {
+    if (!file.read(buffer.data(), size))
+    {
         std::cerr << "Error: Could not read entire file." << std::endl;
         return {};
     }

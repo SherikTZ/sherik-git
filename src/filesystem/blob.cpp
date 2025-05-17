@@ -4,11 +4,13 @@
 #include <filesystem>
 #include <vector>
 
-int writeBlobFile(const std::string& filepath) {
+int writeBlobFile(const std::string &filepath)
+{ // TODO - rewrite function to write any object type to header
 
     std::vector<char> originalContent = readFileBinary(filepath);
 
-    if (originalContent.empty()) {
+    if (originalContent.empty())
+    {
         std::cerr << "Error reading file or file is empty.\n";
         return -1;
     }
@@ -37,17 +39,19 @@ int writeBlobFile(const std::string& filepath) {
 
     std::ofstream outFile(outFilepath, std::ios::binary);
 
-    if (!outFile) {
+    if (!outFile)
+    {
         std::cerr << "Error creating output file.\n";
         return -1;
     }
 
-    outFile.write(reinterpret_cast<const char*>(combinedData.data()), combinedData.size());
+    outFile.write(reinterpret_cast<const char *>(combinedData.data()), combinedData.size());
 
-    if (!outFile.good()) {
-         std::cerr << "Error: Failed to write all data to object file: " << hashString << std::endl;
-         outFile.close();
-         return -1;
+    if (!outFile.good())
+    {
+        std::cerr << "Error: Failed to write all data to object file: " << hashString << std::endl;
+        outFile.close();
+        return -1;
     }
     outFile.close();
 
